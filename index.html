@@ -18,35 +18,12 @@ t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '2022989168340020');
-JOIN TELEGRAM button tracking
-  --------------------------------
-  Sirf isi button par conversion events fire honge.
-*/
-document.addEventListener('DOMContentLoaded', function () {
-
-    var joinButton = document.getElementById('join-telegram');
-
-    if (!joinButton) return;
-
-    joinButton.addEventListener('click', function () {
-
-        fbq('track', 'Subscribe');
-
-        fbq('track', 'Lead', {
-            value: 100.00,
-            currency: 'INR'
-        });
-
-    });
-
-});
+fbq('track', 'PageView');
 </script>
-
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=2022989168340020&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
-
 </head>
 
 <body>
