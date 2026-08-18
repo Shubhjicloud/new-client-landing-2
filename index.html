@@ -17,12 +17,50 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
+
+// Pixel Init — PageView automatically fire nahi hoga
 fbq('init', '2022989168340020');
-fbq('track', 'PageView');
+
+// Manual PageView track hata diya — abhi ke liye kuch nahi
+
+// Utility function to generate unique event_id
+function generateEventId() {
+    return Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+// Track Subscribe + Lead on Telegram Button Click
+document.addEventListener('DOMContentLoaded', function () {
+    var joinButton = document.getElementById('join-telegram');
+
+    if (!joinButton) {
+        console.warn('Join Telegram button not found');
+        return;
+    }
+
+    joinButton.addEventListener('click', function () {
+        var eventId = generateEventId();
+
+        // Subscribe event with event_id to prevent duplication
+        fbq('track', 'Subscribe', {}, { eventID: eventId + '_sub' });
+
+        // Lead event with event_id and dynamic value
+        fbq('track', 'Lead', {
+            // Agar dynamic value hai toh yahan daal, nahi toh value mat bhejo
+            // value: 100.00,  // <-- Hata diya, hardcode mat karo
+            currency: 'INR'
+        }, { eventID: eventId + '_lead' });
+
+        console.log('🔥 Meta Events fired: Subscribe + Lead');
+    });
+});
+
 </script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=2022989168340020&ev=PageView&noscript=1"
-/></noscript>
+
+<!-- Noscript tag — PageView hata diya, ab sirf event tracking ke liye -->
+<noscript>
+    <img height="1" width="1" style="display:none" 
+    src="https://www.facebook.com/tr?id=2022989168340020&noscript=1" />
+</noscript>
 <!-- End Meta Pixel Code -->
 </head>
 
