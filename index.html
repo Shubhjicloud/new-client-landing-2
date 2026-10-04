@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="style.css">
     <!-- Meta Pixel Code -->
+<!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -17,24 +18,32 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1287122180103594');
+fbq('init', '1835660101207369');
 fbq('track', 'PageView');
+
 document.addEventListener('click', function(e) {
     var button = e.target.closest('a, button');
-
     if (!button) return;
 
     var text = button.innerText.trim().toLowerCase();
 
-    if (
-        text.includes('join telegram') ||
-        text.includes('subscribe')
-    ) {
+    // ✅ Join Telegram → Lead Event
+    if (text.includes('join telegram') || text.includes('join now')) {
         fbq('track', 'Lead');
+        console.log('✅ Lead event fired');
+    }
+
+    // ✅ Subscribe → Subscribe Event
+    if (text.includes('subscribe')) {
+        fbq('track', 'Subscribe');
+        console.log('✅ Subscribe event fired');
     }
 });
 </script>
-<noscript></noscript>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1835660101207369&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 <!-- End Meta Pixel Code -->
 </head>
 
