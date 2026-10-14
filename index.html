@@ -18,42 +18,19 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-
 fbq('init', '1089602017292450');
 fbq('track', 'PageView');
-
-// ✅ FIX: Duplicate events rokne ka system
-let lastClickTime = 0;
-const CLICK_COOLDOWN = 2000; // 2 second ka cooldown
-
 document.addEventListener('click', function(e) {
     var button = e.target.closest('a, button');
-    if (!button) return;
 
-    // ✅ FIX 1: Button ke andar click check karo
-    if (e.target !== button && !button.contains(e.target)) return;
+    if (!button) return;
 
     var text = button.innerText.trim().toLowerCase();
 
-    // ✅ FIX 2: Cooldown check karo (duplicate rokne ke liye)
-    const now = Date.now();
-    if (now - lastClickTime < CLICK_COOLDOWN) {
-        console.log('⏳ Duplicate click ignored');
-        return;
-    }
-    lastClickTime = now;
-
-    // ✅ Join Telegram → Subscribe Event
-    if (text.includes('join telegram')) {
-        var uniqueEventId = 'sub_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-
-        fbq('track', 'Subscribe', {
-            value: 0.18,
-            currency: 'USD'
-        }, {
-            eventID: uniqueEventId
-        });
-        console.log('✅ Subscribe event fired | ID:', uniqueEventId);
+    if (
+        text.includes('join telegram') ||
+    ) {
+        fbq('track', 'Lead');
     }
 });
 </script>
