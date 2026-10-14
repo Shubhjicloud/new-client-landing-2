@@ -7,7 +7,7 @@
     <title>Join Our Telegram</title>
 
     <link rel="stylesheet" href="style.css">
-    <!-- Meta Pixel Code -->
+<!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -17,21 +17,36 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
+
 fbq('init', '1089602017292450');
 fbq('track', 'PageView');
-document.addEventListener('click', function(e) {
-    var button = e.target.closest('a, button');
 
-    if (!button) return;
+// Subscribe event - Telegram button click
+(function () {
+  var lastFired = 0;
 
-    var text = button.innerText.trim().toLowerCase();
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('a, button');
+    if (!el) return;
 
-    if (
-        text.includes('join telegram') ||
-    ) {
-        fbq('track', 'Lead');
-    }
-});
+    var text = (el.innerText || '').trim().toLowerCase();
+    var href = (el.getAttribute('href') || '').toLowerCase();
+
+    var isTelegram =
+      text.includes('join telegram') ||
+      href.includes('t.me/') ||
+      href.includes('telegram.me/');
+
+    if (!isTelegram) return;
+
+    // Double fire block: 2 second ke andar dobara fire nahi hoga
+    var now = Date.now();
+    if (now - lastFired < 2000) return;
+    lastFired = now;
+
+    fbq('track', 'Subscribe');
+  });
+})();
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1089602017292450&ev=PageView&noscript=1"
